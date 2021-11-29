@@ -20,7 +20,7 @@ const userSchema = new Schema({
   email: { type: String, unique: true, required: [true, 'Email es necesario'] },
   uname: {type: String, unique: true, required: [true, 'El nombre de usuario es necesario'] },
   pass: { type: String, required: [true, 'Pass es necesario'] },
-  group: {type: String},
+  groups: {type: Array},
   avatar: {type: String, default: '/public/img/avatar/default.jpg',},
   date: { type: Date, default: Date.now },
 });
