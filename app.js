@@ -41,6 +41,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // Rutas
 app.use('/api/doors/', require('./routes/doors'));
+app.use('/api', require('./routes/user'));
+app.use('/api/login', require('./routes/login'));
 
 // Middleware para Vue.js router modo history
 const history = require('connect-history-api-fallback');
