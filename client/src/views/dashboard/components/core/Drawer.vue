@@ -155,8 +155,28 @@
         },
         {
           icon: 'mdi-account',
-          title: 'user',
-          to: '/pages/user',
+          title: 'profiles',
+          to: 'profiles/profiles',
+        },
+        {
+          icon: 'mdi-food-off',
+          title: 'diets',
+          to: '##',
+        },
+        {
+          icon: 'mdi-food-variant',
+          title: 'recipes',
+          to: '###',
+        },
+        {
+          icon: 'mdi-food-apple',
+          title: 'foods',
+          to: '####',
+        },
+        {
+          icon: 'mdi-altimeter',
+          title: 'measures',
+          to: '#####',
         },
         {
           title: 'rtables',
@@ -182,6 +202,11 @@
           title: 'notifications',
           icon: 'mdi-bell',
           to: '/components/notifications',
+        },
+        {
+          icon: 'mdi-account-settings',
+          title: 'settings',
+          to: '######',
         },
       ],
     }),

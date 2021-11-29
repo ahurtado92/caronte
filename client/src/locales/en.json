@@ -1,11 +1,11 @@
 {
-  "avatar": "Mechanical Health",
+  "avatar": "Thrèpsi",
   "buttons": "Buttons",
   "calendar": "Calendar",
   "charts": "Charts",
   "components": "Components",
   "ct": "CT",
-  "dashboard": "Dashboard",
+  "dashboard": "Dashboard", 
   "dtables": "Data Tables",
   "eforms": "Extended Forms",
   "error": "Error Page",
@@ -25,6 +25,7 @@
   "plan": "Choose Plan",
   "pricing": "Pricing",
   "my-profile": "My Profile",
+  "profiles": "Profiles",
   "edit-profile": "Edit Profile",
   "register": "Register Page",
   "rforms": "Regular Forms",
@@ -41,5 +42,9 @@
   "user": "User Profile",
   "vforms": "Validation Forms",
   "widgets": "Widgets",
-  "wizard": "Wizard"
+  "wizard": "Wizard",
+  "diets": "Diets",
+  "recipes": "Recipes",
+  "foods": "Foods",
+  "measures": "Measures"
 }

@@ -24,7 +24,7 @@ import i18n from './i18n'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
-axios.defaults.baseURL = 'https://mechahealth.herokuapp.com/api'
+axios.defaults.baseURL = 'https://jm-caronte.herokuapp.com/api'
 
 Vue.config.productionTip = false
 

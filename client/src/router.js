@@ -24,6 +24,18 @@ const routes = [
         meta: { requireAuth: true },
       },
       {
+        name: 'Profile',
+        path: 'profiles/profile',
+        component: () => import('@/views/dashboard/pages/Profile'),
+        meta: { requireAuth: true },
+      },
+      {
+        name: 'Profiles',
+        path: 'profiles/profiles',
+        component: () => import('@/views/dashboard/pages/Profiles'),
+        meta: { requireAuth: true },
+      },
+      {
         name: 'Notifications',
         path: 'components/notifications',
         component: () => import('@/views/dashboard/component/Notifications'),
