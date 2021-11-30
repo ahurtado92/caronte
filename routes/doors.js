@@ -39,7 +39,7 @@ router.get('/doors', verificarAuth, async(req, res) => {
 
   try {
     //const doorDb = await door.find({usuarioId});
-    const doorDb = await Door.find({});
+    const doorDb = await Device.find({});
     res.json(groupDb);
   } catch (error) {
     return res.status(400).json({
