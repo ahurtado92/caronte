@@ -19,7 +19,7 @@
             ></v-overflow-btn>
 
             <v-overflow-btn
-                v-model="user.role"
+                v-model="user.activo"
                 class="my-2"
                 :items="dropdown_active"
                 label="Activo"
@@ -106,7 +106,7 @@
             ></v-overflow-btn>
 
             <v-overflow-btn
-                v-model="user.role"
+                v-model="userToEdit.activo"
                 class="my-2"
                 :items="dropdown_active"
                 label="Activo"

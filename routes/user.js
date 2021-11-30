@@ -79,8 +79,6 @@ router.put('/usuario/:id', async(req, res) => {
 
     const _id = req.params.id;
     const body = req.body;
-    //let body = _.pick(req.body, ['nombre', 'email', 'role', 'pass']);
-    console.log(body);
     if(body.pass){
       body.pass = bcrypt.hashSync(req.body.pass, saltRounds);
     }
