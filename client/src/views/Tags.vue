@@ -9,14 +9,14 @@
         >
             <h3 class="text-center">Agregar nuevo tag</h3>
             <v-text-field
-                v-model="tag.name"
-                label="Nombre"
+                v-model="tag.tagId"
+                label="Tag ID"
                 required
             ></v-text-field>
 
             <v-text-field
-                v-model="tag.description"
-                label="Descripción"
+                v-model="tag.active"
+                label="Activo"
                 required
             ></v-text-field>
 
@@ -37,16 +37,16 @@
             ref="form"
             lazy-validation
         >
-            <h3 class="text-center">Agregar nuevo tag</h3>
+            <h3 class="text-center">Modificar tag</h3>
             <v-text-field
-                v-model="tagEditar.name"
-                label="Nombre"
+                v-model="tagEditar.tagId"
+                label="Tag ID"
                 required
             ></v-text-field>
 
             <v-text-field
-                v-model="tagEditar.description"
-                label="Descripción"
+                v-model="tagEditar.active"
+                label="Activo"
                 required
             ></v-text-field>
 
@@ -69,15 +69,15 @@
             <template v-slot:default>
                 <thead>
                     <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Descripción</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Activo</th>
                     <th scope="col">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="(item, index) in tags" :key="index">
-                    <th scope="row">{{item.name}}</th>
-                    <td>{{item.description}}</td>
+                    <th scope="row">{{item.tagId}}</th>
+                    <td>{{item.active}}</td>
                     <td>
                         <v-btn
                             color="primary"

@@ -2,20 +2,20 @@
     <div class="container">
         <v-form
             v-if="agregar"
-            @submit.prevent="agregarGrupo(grupo)"
-            id="form-nuevo-grupo"
+            @submit.prevent="agregarPuertas(puerta)"
+            id="form-nueva-puerta"
             ref="form"
             lazy-validation
         >
-            <h3 class="text-center">Agregar nuevo Grupo</h3>
+            <h3 class="text-center">Agregar nueva puerta</h3>
             <v-text-field
-                v-model="grupo.name"
+                v-model="puerta.name"
                 label="Nombre"
                 required
             ></v-text-field>
 
             <v-text-field
-                v-model="grupo.description"
+                v-model="puerta.description"
                 label="Descripción"
                 required
             ></v-text-field>
@@ -25,27 +25,27 @@
                 class="mr-4"
                 type="submit"
                 color="success"
-                form="form-nuevo-grupo"
+                form="form-nueva-puerta"
             >Añadir</v-btn>
 
         </v-form>
 
         <v-form
             v-else
-            @submit.prevent="editarGrupo(grupoEditar)"
-            id="form-editar-grupo"
+            @submit.prevent="editarPuerta(puertaEditar)"
+            id="form-editar-puerta"
             ref="form"
             lazy-validation
         >
-            <h3 class="text-center">Agregar nuevo Grupo</h3>
+            <h3 class="text-center">Agregar nueva puerta</h3>
             <v-text-field
-                v-model="grupoEditar.name"
+                v-model="puertaEditar.name"
                 label="Nombre"
                 required
             ></v-text-field>
 
             <v-text-field
-                v-model="grupoEditar.description"
+                v-model="puertaEditar.description"
                 label="Descripción"
                 required
             ></v-text-field>
@@ -54,7 +54,7 @@
                 class="mr-4"
                 type="submit"
                 color="success"
-                form="form-editar-grupo"
+                form="form-editar-puerta"
             >Actualizar</v-btn>
 
             <v-btn
@@ -75,19 +75,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(item, index) in grupos" :key="index">
+                    <tr v-for="(item, index) in puertas" :key="index">
                     <th scope="row">{{item.name}}</th>
                     <td>{{item.description}}</td>
                     <td>
                         <v-btn
                             color="primary"
                             class="mx-2"
-                            @click.stop="activarEdicionGrupo(item._id)"
+                            @click.stop="activarEdicionPuerta(item._id)"
                         >Editar</v-btn>
                         <v-btn
                             color="error"
                             class="mx-2"
-                            @click.stop="eliminarGrupo(item._id)"
+                            @click.stop="eliminarPuerta(item._id)"
                         >Eliminar</v-btn>
                     </td>
                     </tr>
@@ -103,15 +103,15 @@ import { mapState } from 'vuex';
 export default {
     data() {
         return {
-            grupos: [],
-            grupo: {},
+            puertas: [],
+            puerta: {},
             agregar: true,
-            grupoEditar: {},
+            puertaEditar: {},
         };
     },
     created(){
         setTimeout(() => {
-            this.listarGrupos();
+            this.listarPuertas();
         }, 300)
         
     },
@@ -119,62 +119,62 @@ export default {
         ...mapState(['token'])
     },
     methods:{
-        listarGrupos(){
+        listarPuertas(){
             let config = {
                 headers: {
                     token: this.token
                 }
             }
-            this.axios.get('groups', config)
+            this.axios.get('doors', config)
             .then((response) => {
-                this.grupos = response.data;
+                this.puertas = response.data;
             })
             .catch((e)=>{
                 console.log('error' + e);
             })
         },
 
-        agregarGrupo(item){
+        agregarPuertas(item){
             let config = {
                 headers: {
                     token: this.token
                 }
             }
-            this.axios.post('new-group', this.grupo, config)
+            this.axios.post('new-door', this.puerta, config)
             .then(res => {
-            this.listarGrupos();
+            this.listarPuertas();
             })
             .catch( e => {
             
             console.log(e.response);
             })
-        this.grupos = {}
+        this.puertas = {}
         },
-        eliminarGrupo(id){
-            this.axios.delete(`group/${id}`)
+        eliminarPuerta(id){
+            this.axios.delete(`door/${id}`)
             .then(res => {
-                let index = this.grupos.findIndex( item => item._id === res.data._id )
-                this.grupos.splice(index, 1);
+                let index = this.puertas.findIndex( item => item._id === res.data._id )
+                this.puertas.splice(index, 1);
             })
             .catch( e => {
                 console.log(e.response);
             })
         },
-        activarEdicionGrupo(id){
+        activarEdicionPuerta(id){
             this.agregar = false;
-            this.axios.get(`group/${id}`)
+            this.axios.get(`door/${id}`)
             .then(res => {
-                this.grupoEditar = res.data;
+                this.puertaEditar = res.data;
             })
             .catch(e => {
                 console.log(e.response);
             })
         },
-        editarGrupo(item){
-            this.axios.put(`group/${item._id}`, item)
+        editarPuerta(item){
+            this.axios.put(`door/${item._id}`, item)
             .then(res => {
-                this.grupoEditar = {}
-                this.listarGrupos();
+                this.puertaEditar = {}
+                this.listarPuertas();
             })
             .catch(e => {
                 console.log(e);

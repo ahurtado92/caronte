@@ -44,6 +44,13 @@ const routes = [
     //meta: {requireAuth: true}
     meta: {requireAuth: true, requireAdmin: true}
   },
+  {
+    path: '/doors',
+    name: 'doors',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Doors.vue'),
+    //meta: {requireAuth: true}
+    meta: {requireAuth: true, requireAdmin: true}
+  },
 ]
 
 const router = new VueRouter({
