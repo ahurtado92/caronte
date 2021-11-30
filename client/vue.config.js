@@ -1,16 +1,13 @@
 module.exports = {
-  devServer: {
-    disableHostCheck: true,
-  },
-
-  transpileDependencies: ['vuetify'],
-
-  pluginOptions: {
-    i18n: {
-      locale: 'es',
-      fallbackLocale: 'en',
-      localeDir: 'locales',
-      enableInSFC: true,
-    },
-  },
+  "transpileDependencies": [
+    "vuetify"
+  ],
+  chainWebpack: config => {
+    config
+        .plugin('html')
+        .tap(args => {
+            args[0].title = "NodeClassroom";
+            return args;
+        })
+}
 }

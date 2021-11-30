@@ -1,30 +1,27 @@
-// =========================================================
-// * Vuetify Material Dashboard - v2.1.0
-// =========================================================
-//
-// * Product Page: https://www.creative-tim.com/product/vuetify-material-dashboard
-// * Copyright 2019 Creative Tim (https://www.creative-tim.com)
-//
-// * Coded by Creative Tim
-//
-// =========================================================
-//
-// * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import './plugins/base'
-import './plugins/chartist'
-import './plugins/vee-validate'
-import vuetify from './plugins/vuetify'
-import i18n from './i18n'
+import vuetify from './plugins/vuetify';
 
-import axios from 'axios'
-import VueAxios from 'vue-axios'
+import axios from 'axios';
+import VueAxios from 'vue-axios';
+
 Vue.use(VueAxios, axios)
-axios.defaults.baseURL = 'https://jm-caronte.herokuapp.com/api'
+
+Vue.use(require('moment'));
+Vue.use(require('vue-moment'));
+
+import DatetimePicker from 'vuetify-datetime-picker'
+//import 'vuetify-datetime-picker/src/stylus/main.styl'
+
+Vue.use(DatetimePicker)
+
+//Vue.use(vuetify)
+
+//Agregamos la URL base de nuestra API
+//axios.defaults.baseURL = 'http://localhost:3000/api';
+axios.defaults.baseURL = 'https://jm-caronte.herokuapp.com/api';
 
 Vue.config.productionTip = false
 
@@ -32,6 +29,5 @@ new Vue({
   router,
   store,
   vuetify,
-  i18n,
-  render: h => h(App),
+  render: h => h(App)
 }).$mount('#app')
