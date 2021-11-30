@@ -63,5 +63,43 @@ router.get('/door/:id', async(req, res) => {
   }
 });
 
+// Delete eliminar una nota
+router.delete('/door/:id', async(req, res) => {
+  const _id = req.params.id;
+  try {
+    const doorDb = await Device.findByIdAndDelete({_id});
+    if(!doorDb){
+      return res.status(400).json({
+        mensaje: 'No se encontró el id indicado',
+        error
+      })
+    }
+    res.json(doorDb);  
+  } catch (error) {
+    return res.status(400).json({
+      mensaje: 'Ocurrio un error',
+      error
+    })
+  }
+});
+
+// Put actualizar una nota
+router.put('/door/:id', async(req, res) => {
+  const _id = req.params.id;
+  const body = req.body;
+  try {
+    const doorDb = await Device.findByIdAndUpdate(
+      _id,
+      body,
+      {new: true});
+    res.json(doorDb);  
+  } catch (error) {
+    return res.status(400).json({
+      mensaje: 'Ocurrio un error',
+      error
+    })
+  }
+});
+
 // Exportamos la configuración de express app
 module.exports = router;
