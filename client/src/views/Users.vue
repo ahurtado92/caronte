@@ -19,6 +19,15 @@
             ></v-overflow-btn>
 
             <v-overflow-btn
+                v-model="user.role"
+                class="my-2"
+                :items="dropdown_active"
+                label="Activo"
+                item-value="text"
+                required
+            ></v-overflow-btn>
+
+            <v-overflow-btn
                 v-if="user.role == 'USER'"
                 v-model="user.group"
                 class="my-2"
@@ -97,6 +106,15 @@
             ></v-overflow-btn>
 
             <v-overflow-btn
+                v-model="user.role"
+                class="my-2"
+                :items="dropdown_active"
+                label="Activo"
+                item-value="text"
+                required
+            ></v-overflow-btn>
+
+            <v-overflow-btn
                 v-if="userToEdit.role == 'USER'"
                 v-model="userToEdit.group"
                 class="my-2"
@@ -125,7 +143,6 @@
             ></v-text-field>
 
             <DatePicker label="Nacimiento" v-on:date="updateBirthDate($event, userToEdit)" />
-            
 
             <v-text-field
                 v-model="userToEdit.email"
@@ -167,6 +184,7 @@
                     <tr>
                     <th scope="col">Username</th>
                     <th scope="col">Role</th>
+                    <th scope="col">Activo</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Apellidos</th>
                     <th scope="col">Phone</th>
@@ -180,6 +198,7 @@
                     <tr v-for="(item, index) in users" :key="index">
                     <th scope="row">{{item.uname}}</th>
                     <td>{{item.role}}</td>
+                    <td>{{item.activo}}</td>
                     <td>{{item.nombre}}</td>
                     <td>{{item.apellidos}}</td>
                     <td>{{item.phone}}</td>
@@ -223,6 +242,10 @@ export default {
                 { text: 'ADMIN' },
                 { text: 'USER' },
                 { text: 'TEACHER' },
+            ],
+            dropdown_active: [
+                { text: 'true' },
+                { text: 'false' },
             ],
         };
     },
