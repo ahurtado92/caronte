@@ -43,7 +43,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/doors/', require('./routes/doors'));
 app.use('/api', require('./routes/group'));
 app.use('/api', require('./routes/user'));
-app.use('/api', require('./routes/user'));
+app.use('/api', require('./routes/tags'));
+app.use('/api', require('./routes/doors'));
 app.use('/api/login', require('./routes/login'));
 
 // Middleware para Vue.js router modo history

@@ -71,6 +71,7 @@ import { mapActions, mapGetters } from 'vuex';
           { title: 'Home', icon: 'home', path: '/', conditions: '' },
           { title: 'Usuarios', icon: 'mdi-account-group-outline', path: 'users', conditions: 'estaActivo && isAdmin'  },
           { title: 'Grupos', icon: 'group', path: 'groups', conditions: 'estaActivo && isAdmin'  },
+          { title: 'Llaves', icon: 'key', path: 'tags', conditions: 'estaActivo && isAdmin'  },
         ],
         uname: null,
         unm: null,

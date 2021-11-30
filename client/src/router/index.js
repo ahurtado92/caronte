@@ -37,6 +37,13 @@ const routes = [
     //meta: {requireAuth: true}
     meta: {requireAuth: true, requireAdmin: true}
   },
+  {
+    path: '/tags',
+    name: 'tags',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Tags.vue'),
+    //meta: {requireAuth: true}
+    meta: {requireAuth: true, requireAdmin: true}
+  },
 ]
 
 const router = new VueRouter({
