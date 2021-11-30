@@ -20,6 +20,33 @@
                 required
             ></v-text-field>
 
+            <v-overflow-btn
+                v-model="puerta.activo"
+                class="my-2"
+                :items="[true, false]"
+                label="Activa"
+                item-value="text"
+                required
+            ></v-overflow-btn>
+
+            <v-text-field
+                v-model="puerta.devId"
+                label="Dev ID"
+                required
+            ></v-text-field>
+
+            <v-text-field
+                v-model="puerta.groups"
+                label="Grupos"
+                required
+            ></v-text-field>
+
+            <v-text-field
+                v-model="puerta.host"
+                label="Host"
+                required
+            ></v-text-field>
+
             <v-btn
                 block
                 class="mr-4"
@@ -50,6 +77,33 @@
                 required
             ></v-text-field>
 
+            <v-overflow-btn
+                v-model="puertaEditar.activo"
+                class="my-2"
+                :items="[true, false]"
+                label="Activa"
+                item-value="text"
+                required
+            ></v-overflow-btn>
+
+            <v-text-field
+                v-model="puertaEditar.devId"
+                label="Dev ID"
+                required
+            ></v-text-field>
+
+            <v-text-field
+                v-model="puertaEditar.groups"
+                label="Grupos"
+                required
+            ></v-text-field>
+
+            <v-text-field
+                v-model="puertaEditar.host"
+                label="Host"
+                required
+            ></v-text-field>
+
             <v-btn
                 class="mr-4"
                 type="submit"
@@ -71,6 +125,10 @@
                     <tr>
                     <th scope="col">Nombre</th>
                     <th scope="col">Descripción</th>
+                    <th scope="col">Activo</th>
+                    <th scope="col">DevId</th>
+                    <th scope="col">Grupos</th>
+                    <th scope="col">Host</th>
                     <th scope="col">Acciones</th>
                     </tr>
                 </thead>
@@ -78,6 +136,10 @@
                     <tr v-for="(item, index) in puertas" :key="index">
                     <th scope="row">{{item.name}}</th>
                     <td>{{item.description}}</td>
+                    <td>{{item.activo}}</td>
+                    <td>{{item.devId}}</td>
+                    <td>{{item.groups}}</td>
+                    <td>{{item.host}}</td>
                     <td>
                         <v-btn
                             color="primary"

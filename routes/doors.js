@@ -49,5 +49,19 @@ router.get('/doors', async(req, res) => {
   }
 });
 
+// Get con parámetros
+router.get('/door/:id', async(req, res) => {
+  const _id = req.params.id;
+  try {
+    const doorDb = await Device.findOne({_id});
+    res.json(doorDb);
+  } catch (error) {
+    return res.status(400).json({
+      mensaje: 'Ocurrio un error',
+      error
+    })
+  }
+});
+
 // Exportamos la configuración de express app
 module.exports = router;
