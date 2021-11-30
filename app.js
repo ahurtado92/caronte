@@ -41,8 +41,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // Rutas
 app.use('/api/doors/', require('./routes/doors'));
-app.use('/api/groups/', require('./routes/group'));
-app.use('/api/users/', require('./routes/user'));
+app.use('/api', require('./routes/group'));
+app.use('/api', require('./routes/user'));
 app.use('/api', require('./routes/user'));
 app.use('/api/login', require('./routes/login'));
 
