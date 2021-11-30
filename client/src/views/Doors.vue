@@ -36,12 +36,6 @@
             ></v-text-field>
 
             <v-text-field
-                v-model="puerta.groups"
-                label="Grupos"
-                required
-            ></v-text-field>
-
-            <v-text-field
                 v-model="puerta.host"
                 label="Host"
                 required
@@ -138,7 +132,7 @@
                     <td>{{item.description}}</td>
                     <td>{{item.activo}}</td>
                     <td>{{item.devId}}</td>
-                    <td>{{item.groups}}</td>
+                    <td>{{item.inGroups}}</td>
                     <td>{{item.host}}</td>
                     <td>
                         <v-btn
@@ -166,6 +160,8 @@ export default {
     data() {
         return {
             puertas: [],
+            groups: [],
+            inGroups: [],
             puerta: {},
             agregar: true,
             puertaEditar: {},
@@ -194,6 +190,25 @@ export default {
             .catch((e)=>{
                 console.log('error' + e);
             })
+            this.axios.get('groups', config)
+            .then((response) => {
+                this.groups = response.data; 
+            })
+            .then(
+                () => {
+                    //console.log(this.groups);
+                    this.puertas.forEach(puerta => {
+                        puerta.groups.forEach(group => {
+                            puerta.inGroups = this.groups.find(element => element._id == group).name;
+                            //console.log(puerta.inGroups);
+                        });
+                    });
+                }
+            )
+            .catch((e)=>{
+                console.log('error' + e);
+            })
+            
         },
 
         agregarPuertas(item){

@@ -204,7 +204,7 @@
                     <td>{{item.phone}}</td>
                     <td>{{item.birth}}</td>
                     <td>{{item.email}}</td>
-                    <td>{{item.group}}</td>
+                    <td>{{item.inGroups}}</td>
                     <td>
                         <v-btn
                             v-if="item.uname != 'admin'"
@@ -272,11 +272,6 @@ export default {
             this.axios.get('usuarios', config)
             .then((response) => {
                 response.data.forEach(evt=>{
-                    const g = this.groups.find( (item) => item.value == evt.group )
-                    let gId = [];
-                    if(g !== undefined){
-                        gId = g
-                    }
                     r.push({
                         _id: evt._id,
                         role: evt.role,
@@ -288,13 +283,31 @@ export default {
                         email: evt.email,
                         uname: evt.uname,
                         pass: evt.pass,
-                        group: gId.text,
+                        groups: evt.groups,
                         avatar: evt.avatar,
                         date: new Date(evt.date).toLocaleString(),
                     })
                 });
                 this.users = r;
             })
+            .catch((e)=>{
+                console.log('error' + e);
+            })
+            this.axios.get('groups', config)
+            .then((response) => {
+                this.groups = response.data; 
+            })
+            .then(
+                () => {
+                    //console.log(this.groups);
+                    this.users.forEach(user => {
+                        user.groups.forEach(group => {
+                            user.inGroups = this.groups.find(element => element._id == group).name;
+                            //console.log(puerta.inGroups);
+                        });
+                    });
+                }
+            )
             .catch((e)=>{
                 console.log('error' + e);
             })
