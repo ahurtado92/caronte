@@ -133,12 +133,11 @@
                     <td>{{item.description}}</td>
                     <td>{{item.activo}}</td>
                     <td>{{item.devId}}</td>
-                    <div>
-                        <td v-for="(item, index) in item.inGroups" :key="index">
+                    <td>
+                        <p v-for="(item, index) in item.inGroups" :key="index">
                             {{item.name}}
-                        </td>
-                    </div>
-                    <td>{{item.groups}}</td>
+                        </p>
+                    </td>
                     <td>{{item.host}}</td>
                     <td>{{item.status}}</td>
                     <td>
