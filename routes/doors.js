@@ -69,10 +69,7 @@ router.get('/:host/:device/:tag', async(req, res) => {
 
 // Get con todos los documentos
 router.get('/doors', async(req, res) => {
-  //const usuarioId = req.usuario._id;
-
   try {
-    //const doorDb = await door.find({usuarioId});
     const doorDb = await Device.find({});
     res.json(doorDb);
   } catch (error) {

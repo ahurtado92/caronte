@@ -168,14 +168,15 @@ export default {
         };
     },
     created(){
-        setTimeout(() => {
+        this.timer = setInterval(() => {
             this.listarPuertas();
-        }, 300)
+        }, 1000)
         
     },
     computed: {
         ...mapState(['token'])
     },
+
     methods:{
         listarPuertas(){
             let config = {
@@ -258,6 +259,12 @@ export default {
             })
             this.agregar = true;
         },
+
+    },
+
+    destroyed(){
+        clearInterval(this.timer)
     }
+
 };
 </script>

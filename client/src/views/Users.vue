@@ -256,9 +256,9 @@ export default {
     },
     created(){
         this.listGroups();
-        setTimeout(() => {
+        this.timer = setInterval(() => {
             this.listUsers();
-        }, 300)
+        }, 1000)
     },
     computed: {
         ...mapState(['token'])
@@ -390,6 +390,11 @@ export default {
                 console.log('error' + e);
             })
         },
+
+    },
+
+    destroyed(){
+        clearInterval(this.timer)
     }
 };
 </script>
