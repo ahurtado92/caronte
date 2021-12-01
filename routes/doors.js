@@ -21,7 +21,7 @@ router.get('/:host/:device/:tag', async(req, res) => {
       //const device = await Device.findOne({devId: _device});
       if ( device && tag && intersection.length>0 && device.activo && user.activo && tag.active){
         res.json({access: "granted"});
-        const log = [];
+        const log = {};
         log.device = "device";
         log.tag = "tag";
         log.user = "user";
