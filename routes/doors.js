@@ -78,7 +78,7 @@ router.get('/doors', async(req, res) => {
       let intersection = await door.groups.filter(x => groups.includes(x));
       console.log(intersection);
     });*/
-    doorDb.forEach(async door=>{
+    await doorDb.forEach(async door=>{
       let intersection = groupDB.filter(x => door.groups.includes(x._id)); //OK!!!!!
       //console.log(intersection);
       doorDb.groups = intersection;
