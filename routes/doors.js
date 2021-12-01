@@ -71,8 +71,8 @@ router.get('/:host/:device/:tag', async(req, res) => {
 // Get con todos los documentos
 router.get('/doors', async(req, res) => {
   try {
-    const groupDB = await Group.find({});
     const doorDb = await Device.find({});
+    const groupDB = await Group.find({});
     /*doorDb.forEach(async door=>{
       //let intersection = device.groups.filter(x => user.groups.includes(x));
       let intersection = await door.groups.filter(x => groups.includes(x));
@@ -80,7 +80,7 @@ router.get('/doors', async(req, res) => {
     });*/
     doorDb.forEach(async door=>{
       console.log(door.groups);
-      console.log(groupDB._id);
+      console.log(groupDB);
     });
     res.json(doorDb);
   } catch (error) {
