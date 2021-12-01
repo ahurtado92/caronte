@@ -81,7 +81,7 @@ router.get('/doors', async(req, res) => {
     doorDb.forEach(async door=>{
       console.log(door.groups);
       console.log(groupDB);
-      let intersection = door.groups.filter(x => groups._id.includes(x));
+      let intersection = door.groups.filter(x => groupDB._id.includes(x));
       console.log(intersection);
     });
     res.json(doorDb);
