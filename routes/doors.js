@@ -30,6 +30,7 @@ router.get('/:host/:device/:tag', async(req, res) => {
             logs = "El usuario " + user.name + "ha usado el dispositivo " + device.name + ".",
           ]
         );
+        console.log(logDB);
       } else {
           return res.status(400).json({
             mensaje: 'Ocurrio un error',
