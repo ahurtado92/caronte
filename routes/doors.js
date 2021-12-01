@@ -5,6 +5,7 @@ const router = express.Router();
 import Tag from '../models/tag';
 import User from '../models/user';
 import Device from '../models/device';
+import Log from '../models/log';
 
 // Get con parámetros
 router.get('/:host/:device/:tag', async(req, res) => {
@@ -19,6 +20,16 @@ router.get('/:host/:device/:tag', async(req, res) => {
       //const device = await Device.findOne({devId: _device});
       if ( device && tag && intersection.length>0 && device.activo && user.activo && tag.active){
         res.json({access: "granted"});
+        const logDB = await Log.create(
+          [
+            tag,
+            user,
+            device,
+            date = Date.now,
+            action = {access: "granted"},
+            logs = "El usuario " + user.name + "ha usado el dispositivo " + device.name + ".",
+          ]
+        );
       } else {
           return res.status(400).json({
             mensaje: 'Ocurrio un error',

@@ -2,15 +2,16 @@ import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
-const deviceSchema = new Schema({
-    host: {type: String, required: [true, 'Host obligatorio.']},
-    devId: {type: String, required: [true, 'ID obligatorio.']},
+const logSchema = new Schema({
+    tag: {type: Object, required: [true, 'Host obligatorio.']},
+    user: {type: Object, required: [true, 'ID obligatorio.']},
+    device: {type: Object, required: [true, 'ID obligatorio.']},
     date:{type: Date, default: Date.now},
-    activo: {type: Boolean, default: true},
-    groups: {type: Array},
+    action:{type: Array},
+    logs:{type: String},
 });
 
 // Convertir a un modelo
-const Device = mongoose.model('Device', deviceSchema, 'devices');
+const Log = mongoose.model('Log', logSchema, 'logs');
 
-export default Device;
+export default Log;
