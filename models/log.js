@@ -3,9 +3,9 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const logSchema = new Schema({
-    tag: {type: Object, required: [true, 'Host obligatorio.']},
-    user: {type: Object, required: [true, 'ID obligatorio.']},
-    device: {type: Object, required: [true, 'ID obligatorio.']},
+    tag: {type: String, required: [true, 'Host obligatorio.']},
+    user: {type: String, required: [true, 'ID obligatorio.']},
+    device: {type: String, required: [true, 'ID obligatorio.']},
     date:{type: Date, default: Date.now},
     action:{type: Array},
     logs:{type: String},
