@@ -22,9 +22,12 @@ router.get('/:host/:device/:tag', async(req, res) => {
       if ( device && tag && intersection.length>0 && device.activo && user.activo && tag.active){
         res.json({access: "granted"});
         // call the first chunk of code right away
-    
+        device.locked = false;
+        console.log(device);
         // call the rest of the code and have it execute after 3 seconds
         setTimeout(()=>{
+          device.locked = false;
+          console.log(device);
           console.log('Se espera 3 segundos');
         }, 3000);
 
