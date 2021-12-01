@@ -73,9 +73,12 @@ router.get('/:host/:device/:tag', async(req, res) => {
 router.get('/doors', async(req, res) => {
   try {
     const doorDb = await Device.find({});
-    doorDb.forEach(async door=>{
+    /*doorDb.forEach(async door=>{
       let intersection = await door.groups.filter(x => groups.includes(x));
       console.log(intersection);
+    });*/
+    doorDb.forEach(async door=>{
+      console.log(door);
     });
     res.json(doorDb);
   } catch (error) {
