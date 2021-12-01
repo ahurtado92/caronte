@@ -28,7 +28,7 @@ router.get('/:host/:device/:tag', async(req, res) => {
         log.action = {access: "granted"};
         if(device.outdoor){
           userAction = "activar el dispositivo";
-        }else if(user.status){
+        }else if(!device.outdoor && user.status){
           user.status = false;
           userAction = "salir";
         }else{
