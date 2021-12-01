@@ -222,7 +222,7 @@ void loop() {
     Serial.println("Access Granted");
       digitalWrite(RELAY_PIN, HIGH); //Relay ON
       Serial.println("Relay Activated");
-      delay(3000);
+      delay(2000);
       digitalWrite(RELAY_PIN, LOW); //Relay OFF
   }
   else{

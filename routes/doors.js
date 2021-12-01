@@ -31,7 +31,7 @@ router.get('/:host/:device/:tag', async(req, res) => {
           console.log(device);
           console.log('Se espera 3 segundos');
           const lockedDevice = await Device.findByIdAndUpdate(device._id,device,{new: true});
-        }, 3000);
+        }, 2000);
 
         const log = {};
         log.device = device;
