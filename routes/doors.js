@@ -25,12 +25,12 @@ router.get('/:host/:device/:tag', async(req, res) => {
         device.locked = false;
         console.log(device);
         // call the rest of the code and have it execute after 3 seconds
-        await Device.findByIdAndUpdate(device._id,device,{new: true});
+        Device.findByIdAndUpdate(device._id,device,{new: true});
         setTimeout(()=>{
           device.locked = true;
           console.log(device);
           console.log('Se espera 3 segundos');
-          await Device.findByIdAndUpdate(device._id,device,{new: true});
+          Device.findByIdAndUpdate(device._id,device,{new: true});
         }, 3000);
 
         const log = {};
