@@ -191,6 +191,7 @@
                     <th scope="col">Birth</th>
                     <th scope="col">Email</th>
                     <th scope="col">Group</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Acciones</th>
                     </tr>
                 </thead>
@@ -270,9 +271,11 @@ export default {
                 }
             }
             var r = []
+            var userAction = null;
             this.axios.get('usuarios', config)
             .then((response) => {
                 response.data.forEach(evt=>{
+                    if(evt.status){userAction='En la oficina'}else{userAction='En casa'};
                     r.push({
                         _id: evt._id,
                         role: evt.role,
@@ -287,6 +290,7 @@ export default {
                         groups: evt.groups,
                         avatar: evt.avatar,
                         date: new Date(evt.date).toLocaleString(),
+                        status: userAction,
                     })
                 });
                 this.users = r;
