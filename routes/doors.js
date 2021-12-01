@@ -25,7 +25,7 @@ router.get('/:host/:device/:tag', async(req, res) => {
         log.tag = tag;
         log.user = user;
         log.action = {access: "granted"};
-        log.logs = "El usuario " + user.uname + "ha usado el dispositivo " + device.host + ".";
+        log.logs = "El usuario " + user.uname + " ha usado el dispositivo " + device.name + ".";
         const logDB = await Log.create(log);
       } else {
           responseError = {
