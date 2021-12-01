@@ -25,13 +25,14 @@ router.get('/:host/:device/:tag', async(req, res) => {
         log.tag = tag;
         log.user = user;
         log.action = {access: "granted"};
-        log.logs = "El usuario " + user.name + "ha usado el dispositivo " + device.name + ".";
+        log.logs = "El usuario " + user.uname + "ha usado el dispositivo " + device.host + ".";
         const logDB = await Log.create(log);
       } else {
-          return res.status(400).json({
+          responseError = {
             mensaje: 'Ocurrio un error',
-            error
-          })
+            error: 'No se permite el acceso',
+          }
+          return res.status(400).json(responseError)
         }
     } catch (error) {
       return res.status(400).json({
