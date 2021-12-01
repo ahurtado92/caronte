@@ -17,18 +17,16 @@ router.get('/:host/:device/:tag', async(req, res) => {
       const user = await User.findOne({tags: tag._id});
       const device = await Device.findOne({host: _host, devId: _device});
       let intersection = device.groups.filter(x => user.groups.includes(x));
-      console.log(user);
       //const device = await Device.findOne({devId: _device});
       if ( device && tag && intersection.length>0 && device.activo && user.activo && tag.active){
         res.json({access: "granted"});
         const log = {};
-        log.device = "device";
-        log.tag = "tag";
-        log.user = "user";
+        log.device = device;
+        log.tag = tag;
+        log.user = user;
         log.action = {access: "granted"};
         log.logs = "El usuario " + user.name + "ha usado el dispositivo " + device.name + ".";
         const logDB = await Log.create(log);
-        console.log(log);
       } else {
           return res.status(400).json({
             mensaje: 'Ocurrio un error',
