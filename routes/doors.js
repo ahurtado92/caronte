@@ -28,12 +28,14 @@ router.get('/:host/:device/:tag', async(req, res) => {
         log.action = {access: "granted"};
         if(!device.outdoor){
           userAction = "acceder a la sala";
-        }else if(user.status){
-          user.status = false;
-          userAction = "salir";
         }else{
-          user.status = true;
-          userAction = "entrar";
+          if(user.status){
+            user.status = false;
+            userAction = "salir";
+          }else{
+            user.status = true;
+            userAction = "entrar";
+          }
         }
         const usuarioDB = await User.findByIdAndUpdate(user._id,user,{new: true});
         log.logs = "El usuario " + user.uname + " ha usado el dispositivo " + device.host + " para "+userAction+".";
