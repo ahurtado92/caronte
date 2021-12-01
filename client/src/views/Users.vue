@@ -205,6 +205,7 @@
                     <td>{{item.birth}}</td>
                     <td>{{item.email}}</td>
                     <td>{{item.inGroups}}</td>
+                    <td>{{item.status}}</td>
                     <td>
                         <v-btn
                             v-if="item.uname != 'admin'"

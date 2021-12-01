@@ -23,6 +23,7 @@ const userSchema = new Schema({
   groups: {type: Array},
   avatar: {type: String, default: '/public/img/avatar/default.jpg',},
   date: { type: Date, default: Date.now },
+  status: {type:Boolean, default: true },
 });
 
 // Validator

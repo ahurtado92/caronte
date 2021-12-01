@@ -12,6 +12,7 @@ router.get('/:host/:device/:tag', async(req, res) => {
     const _host = req.params.host;
     const _device = req.params.device;
     const _tag = req.params.tag;
+    let userAction = null;
     try {
       const tag = await Tag.findOne({tagId: _tag});
       const user = await User.findOne({tags: tag._id});
@@ -25,7 +26,15 @@ router.get('/:host/:device/:tag', async(req, res) => {
         log.tag = tag;
         log.user = user;
         log.action = {access: "granted"};
-        log.logs = "El usuario " + user.uname + " ha usado el dispositivo " + device.name + ".";
+        if(user.status){
+          user.status = false;
+          userAction = "salir";
+        }else{
+          user.status = true;
+          userAction = "entrar";
+        }
+        const usuarioDB = await User.findByIdAndUpdate(user._id,user,{new: true});
+        log.logs = "El usuario " + user.uname + " ha usado el dispositivo " + device.host + " para "+userAction+".";
         const logDB = await Log.create(log);
       } else {
           responseError = {
