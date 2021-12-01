@@ -21,6 +21,15 @@ router.get('/:host/:device/:tag', async(req, res) => {
       //const device = await Device.findOne({devId: _device});
       if ( device && tag && intersection.length>0 && device.activo && user.activo && tag.active){
         res.json({access: "granted"});
+        // call the first chunk of code right away
+        device.locked = true;
+        await Device.findByIdAndUpdate(device._id,device,{new: true});
+        // call the rest of the code and have it execute after 3 seconds
+        setTimeout(()=>{
+          device.locked = true;
+          await Device.findByIdAndUpdate(device._id,device,{new: true});
+        }, 3000);
+
         const log = {};
         log.device = device;
         log.tag = tag;

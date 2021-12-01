@@ -11,6 +11,7 @@ const deviceSchema = new Schema({
     name: {type: String},
     description: {type: String},
     outdoor: {type: Boolean, default: false},
+    locked: {type: Boolean, default: true},
 });
 
 // Convertir a un modelo
