@@ -8,6 +8,9 @@ const deviceSchema = new Schema({
     date:{type: Date, default: Date.now},
     activo: {type: Boolean, default: true},
     groups: {type: Array},
+    name: {type: String},
+    description: {type: String},
+    outdoor: {type: Boolean, default: false},
 });
 
 // Convertir a un modelo

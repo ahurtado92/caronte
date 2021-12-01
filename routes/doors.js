@@ -26,7 +26,7 @@ router.get('/:host/:device/:tag', async(req, res) => {
         log.tag = tag;
         log.user = user;
         log.action = {access: "granted"};
-        if(!device.outdoor){
+        if(device.outdoor == false){
           console.log(device.outdoor + " Dispositivo interno")
           userAction = "acceder a la sala";
         }else{
