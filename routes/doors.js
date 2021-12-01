@@ -6,6 +6,7 @@ import Tag from '../models/tag';
 import User from '../models/user';
 import Device from '../models/device';
 import Log from '../models/log';
+import Group from '../models/group';
 
 // Get con parámetros
 router.get('/:host/:device/:tag', async(req, res) => {
@@ -17,6 +18,7 @@ router.get('/:host/:device/:tag', async(req, res) => {
       const tag = await Tag.findOne({tagId: _tag});
       const user = await User.findOne({tags: tag._id});
       const device = await Device.findOne({host: _host, devId: _device});
+      const groups = await Group.find();
       let intersection = device.groups.filter(x => user.groups.includes(x));
       //const device = await Device.findOne({devId: _device});
       if ( device && tag && intersection.length>0 && device.activo && user.activo && tag.active){
@@ -71,6 +73,10 @@ router.get('/:host/:device/:tag', async(req, res) => {
 router.get('/doors', async(req, res) => {
   try {
     const doorDb = await Device.find({});
+    doorDb.forEach(door=>{
+      let intersection = groups.filter(x => door.groups.includes(x));
+      console.log(intersection);
+    });
     res.json(doorDb);
   } catch (error) {
     return res.status(400).json({

@@ -123,6 +123,7 @@
                     <th scope="col">DevId</th>
                     <th scope="col">Grupos</th>
                     <th scope="col">Host</th>
+                    <th scope="col">Estado</th>
                     <th scope="col">Acciones</th>
                     </tr>
                 </thead>
@@ -132,8 +133,9 @@
                     <td>{{item.description}}</td>
                     <td>{{item.activo}}</td>
                     <td>{{item.devId}}</td>
-                    <td>{{item.inGroups}}</td>
+                    <td>{{item.groups}}</td>
                     <td>{{item.host}}</td>
+                    <td>{{item.status}}</td>
                     <td>
                         <v-btn
                             color="primary"
@@ -184,8 +186,10 @@ export default {
                     token: this.token
                 }
             }
+            var r = []
+            var doorStatus = null;
             this.axios.get('doors', config)
-            .then((response) => {
+            /*.then((response) => {
                 this.puertas = response.data;
             })
             .catch((e)=>{
@@ -199,13 +203,38 @@ export default {
                 () => {
                     //console.log(this.groups);
                     this.puertas.forEach(puerta => {
+                        if(puerta.locked){
+                            doorStatus='Cerrada';
+                        }else{
+                            doorStatus='Abierta';
+                        };
+                        puerta.push(doorStatus);
                         puerta.groups.forEach(group => {
                             puerta.inGroups = this.groups.find(element => element._id == group).name;
                             //console.log(puerta.inGroups);
                         });
                     });
                 }
-            )
+            )*/
+            .then((response) => {
+                response.data.forEach(evt=>{
+                    if(evt.locked){doorStatus='Cerrada'}else{doorStatus='Abierta'};
+                    r.push({
+                        _id: evt._id,
+                        host: evt.host,
+                        activo: evt.activo,
+                        devId: evt.devId,
+                        groups: evt.groups,
+                        description: evt.description,
+                        date: new Date(evt.date).toLocaleString(),
+                        name: evt.name,
+                        outdoor: evt.outdoor,
+                        locked: evt.locked,
+                        status: doorStatus,
+                    })
+                });
+                this.puertas = r;
+            })
             .catch((e)=>{
                 console.log('error' + e);
             })
