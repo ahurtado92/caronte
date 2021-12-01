@@ -78,12 +78,29 @@ router.get('/doors', async(req, res) => {
       let intersection = await door.groups.filter(x => groups.includes(x));
       console.log(intersection);
     });*/
-    await doorDb.forEach(async door=>{
-      let intersection = groupDB.filter(x => door.groups.includes(x._id)); //OK!!!!!
-      //console.log(intersection);
-      doorDb.groups = intersection;
-    });
-    res.json(doorDb);
+      const resp = [];
+      doorDb.forEach(async door=>{
+        let intersection = groupDB.filter(x => door.groups.includes(x._id)); //OK!!!!!
+        //console.log(intersection);
+        //doorDb.push(intersection.pop());
+        resp.push({
+          activo: door.activo,
+          groups: door.groups,
+          outdoor: door.outdoor,
+          locked: door.locked,
+          _id: door._id,
+          host: door.host,
+          devId: door.devId,
+          date: door.date,
+          description: door.description,
+          name: door.name,
+          inGroups: intersection
+        })
+      });
+      console.log(resp);
+      res.json(resp);
+    
+    
   } catch (error) {
     return res.status(400).json({
       mensaje: 'Ocurrio un error',

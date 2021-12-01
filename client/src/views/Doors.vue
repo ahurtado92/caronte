@@ -133,6 +133,11 @@
                     <td>{{item.description}}</td>
                     <td>{{item.activo}}</td>
                     <td>{{item.devId}}</td>
+                    <div>
+                        <td v-for="(item, index) in item.inGroups" :key="index">
+                            {{item.name}}
+                        </td>
+                    </div>
                     <td>{{item.groups}}</td>
                     <td>{{item.host}}</td>
                     <td>{{item.status}}</td>
@@ -189,33 +194,6 @@ export default {
             var r = []
             var doorStatus = null;
             this.axios.get('doors', config)
-            /*.then((response) => {
-                this.puertas = response.data;
-            })
-            .catch((e)=>{
-                console.log('error' + e);
-            })
-            this.axios.get('groups', config)
-            .then((response) => {
-                this.groups = response.data; 
-            })
-            .then(
-                () => {
-                    //console.log(this.groups);
-                    this.puertas.forEach(puerta => {
-                        if(puerta.locked){
-                            doorStatus='Cerrada';
-                        }else{
-                            doorStatus='Abierta';
-                        };
-                        puerta.push(doorStatus);
-                        puerta.groups.forEach(group => {
-                            puerta.inGroups = this.groups.find(element => element._id == group).name;
-                            //console.log(puerta.inGroups);
-                        });
-                    });
-                }
-            )*/
             .then((response) => {
                 response.data.forEach(evt=>{
                     if(evt.locked){doorStatus='Cerrada'}else{doorStatus='Abierta'};
@@ -225,6 +203,7 @@ export default {
                         activo: evt.activo,
                         devId: evt.devId,
                         groups: evt.groups,
+                        inGroups: evt.inGroups,
                         description: evt.description,
                         date: new Date(evt.date).toLocaleString(),
                         name: evt.name,
