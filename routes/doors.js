@@ -18,7 +18,6 @@ router.get('/:host/:device/:tag', async(req, res) => {
       const tag = await Tag.findOne({tagId: _tag});
       const user = await User.findOne({tags: tag._id});
       const device = await Device.findOne({host: _host, devId: _device});
-      const groups = await Group.find();
       let intersection = device.groups.filter(x => user.groups.includes(x));
       //const device = await Device.findOne({devId: _device});
       if ( device && tag && intersection.length>0 && device.activo && user.activo && tag.active){
@@ -72,6 +71,7 @@ router.get('/:host/:device/:tag', async(req, res) => {
 // Get con todos los documentos
 router.get('/doors', async(req, res) => {
   try {
+    const groups = await Group.find();
     const doorDb = await Device.find({});
     /*doorDb.forEach(async door=>{
       let intersection = await door.groups.filter(x => groups.includes(x));
