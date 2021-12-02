@@ -9,7 +9,7 @@ import Log from '../models/log';
 import Group from '../models/group';
 
 // Get con parámetros
-router.get('/:host/:device/:tag', async(req, res) => {
+router.get('/doors/:host/:device/:tag', async(req, res) => {
     const _host = req.params.host;
     const _device = req.params.device;
     const _tag = req.params.tag;
@@ -69,18 +69,23 @@ router.get('/:host/:device/:tag', async(req, res) => {
 });
 
 router.get('/doors/open/:host', async(req, res) => {
-  const _device = req.params.device;
+  const _host = req.params.host;
   try {
-    const device = await Device.findOne({host: _host});
-    if(device){
+    const device = await Device.findOne({host: _host})
+    if(device.openRequest){
       res.json({open: "true"});
+    } else {
+      res.status(400).json({
+        mensaje: 'Ocurrio un error',
+        error
+      });
     }
   } catch (error) {
     return res.status(400).json({
       mensaje: 'Ocurrio un error',
       error
-    })
-  }
+  })
+}
 });
 
 // Get con todos los documentos

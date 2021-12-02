@@ -40,7 +40,6 @@ app.use(express.urlencoded({ extended: true }));
 // app.use(express.static(path.join(__dirname, 'public')));
 
 // Rutas
-app.use('/api/doors/', require('./routes/doors'));
 app.use('/api', require('./routes/group'));
 app.use('/api', require('./routes/user'));
 app.use('/api', require('./routes/tags'));
