@@ -99,19 +99,16 @@ router.get('/doors/open/:host', async(req, res) => {
 router.get('/doors/requestOpen/:host', async(req, res) => {
   const _host = req.params.host;
   try {
-    res.json({open: "true"});
     const device = await Device.findOne({host: _host});
     device.openRequest = true;
-    const unlockedDevice = await Device.findByIdAndUpdate(device._id,device,{new: true});
+    const unlockedDevice = await Device.findByIdAndUpdate(device._id,device);
     console.log(unlockedDevice);
-    /*setTimeout(async()=>{
-      device.openRequest = false;
-      console.log(device);
-      console.log('Se espera 0.2 segundos');
-      const lockedDevice = await Device.findByIdAndUpdate(device._id,device,{new: true});
+    res.json({requestOpen: "true"});
+    unlockedDevice.openRequest = false;
+    setTimeout(async()=>{ 
+      const lockedDevice = await Device.findByIdAndUpdate(unlockedDevice._id,unlockedDevice);
       console.log(lockedDevice);
-      console.log('Fin')
-    }, 2000);*/
+    }, 3000);
   } catch (error) {
     return res.status(400).json({
       mensaje: 'Ocurrio un error',
