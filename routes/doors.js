@@ -74,6 +74,13 @@ router.get('/doors/open/:host', async(req, res) => {
     const device = await Device.findOne({host: _host})
     if(device.openRequest){
       res.json({open: "true"});
+      const unlockedDevice = await Device.findByIdAndUpdate(device._id,device,{new: true});
+        setTimeout(async()=>{
+          device.locked = true;
+          console.log(device);
+          console.log('Se espera 3 segundos');
+          const lockedDevice = await Device.findByIdAndUpdate(device._id,device,{new: true});
+        }, 2000);
     } else {
       res.status(400).json({
         mensaje: 'Ocurrio un error',

@@ -78,7 +78,7 @@ void dump_byte_array(byte *buffer, byte bufferSize) {
   }
 }
 
-ESP8266WebServer server(80);
+/*ESP8266WebServer server(80);
 
 const String postForms = "<html>\
   <head>\
@@ -95,7 +95,7 @@ void handleRoot() {
   Serial.println("Relay Activated");
   delay(3000);
   digitalWrite(RELAY_PIN, LOW); //Relay OFF
-}
+}*/
 
 //=======================================================================
 //                    Power on setup
@@ -135,9 +135,9 @@ void setup() {
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());  //IP address assigned to your ESP
 
-  server.on("/", handleRoot);
-  server.begin();
-  Serial.println("HTTP server started");
+  //server.on("/", handleRoot);
+  //server.begin();
+  //Serial.println("HTTP server started");
 }
 
 //=======================================================================
@@ -150,13 +150,28 @@ void loop() {
 
   //Serial.printf("Using fingerprint '%s'\n", fingerprint);
   httpsClient.setFingerprint(fingerprint);
-  httpsClient.setTimeout(500); // 0.5 Seconds
+  httpsClient.setTimeout(300); // 0.3 Seconds
   //delay(1000);
 
   // Look for new cards
   if ( ! mfrc522.PICC_IsNewCardPresent()) {
     delay(50);
-    server.handleClient();
+
+    Serial.println("HTTPS Connecting");
+    int r=0; //retry counter
+    while((!httpsClient.connect(host, httpsPort)) && (r < 300)){
+        delay(10);
+        Serial.print(".");
+        r++;
+    }
+    if(r==30) {
+      Serial.println("Connection failed");
+    }
+    else {
+      Serial.println("Connected to web");
+    }
+    
+    //server.handleClient();
 
     httpsClient.print(String("GET ") + "/api/doors/open/"+deviceName+" HTTP/1.1\r\n" +
                  "Host: " + host + "\r\n" +          
@@ -165,8 +180,9 @@ void loop() {
     Serial.println("request sent");
                     
     while (httpsClient.connected()) { 
-      String line = httpsClient.readStringUntil('\n');
-      if (line == "\r") {
+      String line2 = httpsClient.readStringUntil('\n');
+      if (line2 == "\r") {
+        Serial.println("headers received");
         break;
       }
     }
@@ -177,7 +193,7 @@ void loop() {
     }
     int pass2 = line2.indexOf("true");
     Serial.println(pass2);
-    if(pass2 == 11){
+    if(pass2 == 9){
       Serial.println("Access Granted");
         digitalWrite(RELAY_PIN, HIGH); //Relay ON
         Serial.println("Relay Activated");
