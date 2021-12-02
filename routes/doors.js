@@ -72,7 +72,7 @@ router.get('/open/:host', async(req, res) => {
   const _device = req.params.device;
   try {
     const device = await Device.findOne({host: _host, devId: _device});
-    if(device.openRequest){
+    if(device){
       res.json({open: "true"});
     }
   } catch (error) {
