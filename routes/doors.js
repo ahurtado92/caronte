@@ -108,7 +108,7 @@ router.get('/doors/requestOpen/:host', async(req, res) => {
           console.log(device);
           console.log('Se espera 3 segundos');
           const lockedDevice = await Device.findByIdAndUpdate(device._id,device,{new: true});
-        }, 2000);
+        }, 300);
   } catch (error) {
     return res.status(400).json({
       mensaje: 'Ocurrio un error',
