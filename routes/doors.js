@@ -99,6 +99,7 @@ router.get('/doors/open/:host', async(req, res) => {
 router.get('/doors/requestOpen/:host', async(req, res) => {
   const _host = req.params.host;
   try {
+    res.json({open: "true"});
     const device = await Device.findOne({host: _host})
     device.openRequest = true;
       const unlockedDevice = await Device.findByIdAndUpdate(device._id,device,{new: true});
