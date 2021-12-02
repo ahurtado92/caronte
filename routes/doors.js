@@ -68,7 +68,7 @@ router.get('/:host/:device/:tag', async(req, res) => {
     }
 });
 
-router.get('/open/:host', async(req, res) => {
+router.get('/doors/open/:host', async(req, res) => {
   const _device = req.params.device;
   try {
     const device = await Device.findOne({host: _host, devId: _device});
