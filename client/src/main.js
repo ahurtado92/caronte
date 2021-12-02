@@ -20,9 +20,8 @@ Vue.use(DatetimePicker)
 //Vue.use(vuetify)
 
 //Agregamos la URL base de nuestra API
-axios.defaults.baseURL = 'http://localhost:3000/api';
-//axios.defaults.baseURL = 'https://jm-caronte.herokuapp.com/api';
-
+//axios.defaults.baseURL = 'http://localhost:3000/api';
+axios.defaults.baseURL = 'https://jm-caronte.herokuapp.com/api'
 Vue.config.productionTip = false
 
 new Vue({
