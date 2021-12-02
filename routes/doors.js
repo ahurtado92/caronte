@@ -68,6 +68,21 @@ router.get('/:host/:device/:tag', async(req, res) => {
     }
 });
 
+router.get('/open/:host', async(req, res) => {
+  const _device = req.params.device;
+  try {
+    const device = await Device.findOne({host: _host, devId: _device});
+    if(device.openRequest){
+      res.json({open: "true"});
+    }
+  } catch (error) {
+    return res.status(400).json({
+      mensaje: 'Ocurrio un error',
+      error
+    })
+  }
+});
+
 // Get con todos los documentos
 router.get('/doors', async(req, res) => {
   try {

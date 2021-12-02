@@ -157,6 +157,37 @@ void loop() {
   if ( ! mfrc522.PICC_IsNewCardPresent()) {
     delay(50);
     server.handleClient();
+
+    httpsClient.print(String("GET ") + "/api/doors/open/"+deviceName+" HTTP/1.1\r\n" +
+                 "Host: " + host + "\r\n" +          
+                 "Connection: close\r\n\r\n");
+    
+    Serial.println("request sent");
+                    
+    while (httpsClient.connected()) { 
+      String line = httpsClient.readStringUntil('\n');
+      if (line == "\r") {
+        break;
+      }
+    }
+    String line2;
+    while(httpsClient.available()){        
+      line2 = httpsClient.readStringUntil('\n');  //Read Line by Line
+      Serial.println(line2); //Print response
+    }
+    int pass2 = line2.indexOf("true");
+    Serial.println(pass2);
+    if(pass2 == 11){
+      Serial.println("Access Granted");
+        digitalWrite(RELAY_PIN, HIGH); //Relay ON
+        Serial.println("Relay Activated");
+        delay(2000);
+        digitalWrite(RELAY_PIN, LOW); //Relay OFF
+    }
+    else{
+      Serial.println("False");
+    }
+    
     return;
   }
   // Select one of the cards
@@ -232,5 +263,6 @@ void loop() {
   Serial.println("closing connection");
     
   //delay(2000);  //GET Data at every 2 seconds
+
 }
 //=======================================================================
