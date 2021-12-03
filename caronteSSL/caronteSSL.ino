@@ -97,12 +97,22 @@ void handleRoot() {
   digitalWrite(RELAY_PIN, LOW); //Relay OFF
 }*/
 
+
+WiFiClientSecure httpsClient;    //Declare object of class WiFiClient
+
+
 //=======================================================================
 //                    Power on setup
 //=======================================================================
 
 void setup() {
   delay(1000);
+
+  //Serial.println(host);
+
+  //Serial.printf("Using fingerprint '%s'\n", fingerprint);
+  httpsClient.setFingerprint(fingerprint);
+  httpsClient.setTimeout(100); // 0.1 Seconds
   
   pinMode(RELAY_PIN, OUTPUT);
   digitalWrite(RELAY_PIN, LOW); //Relay OFF
@@ -142,15 +152,7 @@ void setup() {
 }
 
 void openFromWebApp(){
-  WiFiClientSecure httpsClient;    //Declare object of class WiFiClient
-
-  //Serial.println(host);
-
-  //Serial.printf("Using fingerprint '%s'\n", fingerprint);
-  httpsClient.setFingerprint(fingerprint);
-  httpsClient.setTimeout(100); // 0.1 Seconds
-
-  
+    
   Serial.println("HTTPS Connecting");
     int r=0; //retry counter
     while((!httpsClient.connect(host, httpsPort)) && (r < 30)){
@@ -193,7 +195,7 @@ void openFromWebApp(){
         Serial.println("Relay Activated");
         delay(2000);
         digitalWrite(RELAY_PIN, LOW); //Relay OFF
-        delay(5000);
+        delay(1000);
     }
     else{
       Serial.println("False");
