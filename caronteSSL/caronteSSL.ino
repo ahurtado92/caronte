@@ -207,18 +207,18 @@ void openFromWebApp(){
 //                    Main Program Loop
 //=======================================================================
 void loop() {
-  WiFiClientSecure httpsClient;    //Declare object of class WiFiClient
+  /*WiFiClientSecure httpsClient;    //Declare object of class WiFiClient
 
   //Serial.println(host);
 
   //Serial.printf("Using fingerprint '%s'\n", fingerprint);
   httpsClient.setFingerprint(fingerprint);
-  httpsClient.setTimeout(100); // 0.1 Seconds
+  httpsClient.setTimeout(100); // 0.1 Seconds*/
   delay(200);
 
   // Look for new cards
-  while ( ! mfrc522.PICC_IsNewCardPresent()) {
-    delay(50);
+  if ( ! mfrc522.PICC_IsNewCardPresent()) {
+    delay(100);
 
     openFromWebApp();
     
@@ -226,7 +226,7 @@ void loop() {
   }
   // Select one of the cards
   if ( ! mfrc522.PICC_ReadCardSerial()) {
-    delay(50);
+    delay(100);
     return;
   }
   // Show some details of the PICC (that is: the tag/card)
@@ -296,7 +296,7 @@ void loop() {
   //Serial.println("==========");
   Serial.println("closing connection");
     
-  //delay(2000);  //GET Data at every 2 seconds
+  delay(1000);  //GET Data at every 1 second
 
 }
 //=======================================================================
