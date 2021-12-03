@@ -106,7 +106,7 @@ router.get('/doors/requestOpen/:host', async(req, res) => {
       const device = await Device.findOne({host: _host});
       const lockedDevice = await Device.findByIdAndUpdate(device._id,{openRequest: false},{new: true});
       //console.log(lockedDevice);
-      res.status(200).json(device2);
+      res.status(200).json({OK:"true"});
     }, 200);
   } catch (error) {
     return res.status(400).json({
