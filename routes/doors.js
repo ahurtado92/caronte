@@ -143,7 +143,8 @@ router.get('/doors', async(req, res) => {
           date: door.date,
           description: door.description,
           name: door.name,
-          inGroups: intersection
+          inGroups: intersection,
+          openRequest: door.openRequest
         })
       });
       console.log(resp);
