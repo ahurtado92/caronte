@@ -21,7 +21,7 @@ router.get('/doors/:host/:device/:tag', async(req, res) => {
       let groupEnabled = true;
       let intersection = device.groups.filter(x => user.groups.includes(x));
       intersection.forEach(g => {
-        const groupEnabledDB = await Group.findOne({_id: g._id});
+        const groupEnabledDB = await Group.findById(g._id);
         if(!groupEnabledDB.active){groupEnabled=false}
       });
       //const device = await Device.findOne({devId: _device});
