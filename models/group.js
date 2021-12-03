@@ -7,7 +7,8 @@ const groupSchema = new Schema({
 
     name: {type: String, unique: [true, 'Campo unico.'], required: [true, 'Nombre obligatorio.']},
     description: {type: String},
-    date:{type: Date, default: Date.now}
+    date:{type: Date, default: Date.now},
+    active:{type: Bool, default: true}
 
 });
 
