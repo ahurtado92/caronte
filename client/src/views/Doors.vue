@@ -151,6 +151,13 @@
                             class="mx-2"
                             @click.stop="eliminarPuerta(item._id)"
                         >Eliminar</v-btn>
+
+                        <v-btn
+                            color="secondary"
+                            class="mx-2"
+                            @click.stop="abrirPuerta(item.host)"
+                        >Abrir</v-btn>
+
                     </td>
                     </tr>
                 </tbody>
@@ -265,6 +272,23 @@ export default {
                 console.log(e);
             })
             this.agregar = true;
+        },
+
+        abrirPuerta(item){
+            let config = {
+                headers: {
+                    token: this.token
+                }
+            }
+
+            console.log(item);
+            this.axios.get(`doors/requestOpen/84-0d-8e-92-e7-9e`, config)
+            .then(res => {
+                console.log(res);
+            })
+            .catch(e => {
+                console.log(e);
+            })
         },
 
     },
