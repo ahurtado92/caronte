@@ -71,16 +71,14 @@ router.get('/doors/:host/:device/:tag', async(req, res) => {
 router.get('/doors/open/:host', async(req, res) => {
   const _host = req.params.host;
   try {
-    const device = await Device.findOne({host: _host})
+    const device = await Device.findById({host: _host._id})
     if(device.openRequest){
       res.json({open: "true"});
-      device.locked = false;
-      const unlockedDevice = await Device.findByIdAndUpdate(device._id,device,{new: true});
+      const unlockedDevice = await Device.findByIdAndUpdate(device._id,{locked: false},{new: true});
         setTimeout(async()=>{
-          device.locked = true;
           console.log(device);
           console.log('Se espera 3 segundos');
-          const lockedDevice = await Device.findByIdAndUpdate(device._id,device,{new: true});
+          const lockedDevice = await Device.findByIdAndUpdate(device._id,{locked: true},{new: true});
         }, 2000);
     } else {
       res.status(400).json({
@@ -99,16 +97,17 @@ router.get('/doors/open/:host', async(req, res) => {
 router.get('/doors/requestOpen/:host', async(req, res) => {
   const _host = req.params.host;
   try {
-    const device = await Device.findOne({host: _host});
-    device.openRequest = true;
-    const unlockedDevice = await Device.findByIdAndUpdate(device._id,device);
-    console.log(unlockedDevice);
-    res.json({requestOpen: "true"});
-    unlockedDevice.openRequest = false;
+    //device.openRequest = true;
+    const device = await Device.findOne({host: _host}); 
+    const unlockedDevice = await Device.findByIdAndUpdate(device._id,{openRequest: true},{new: true});
+    //console.log(unlockedDevice);
+    //unlockedDevice.openRequest = false;
     setTimeout(async()=>{ 
-      const lockedDevice = await Device.findByIdAndUpdate(unlockedDevice._id,unlockedDevice);
-      console.log(lockedDevice);
-    }, 3000);
+      const device = await Device.findOne({host: _host});
+      const lockedDevice = await Device.findByIdAndUpdate(device._id,{openRequest: false},{new: true});
+      //console.log(lockedDevice);
+      res.status(200).json(device2);
+    }, 200);
   } catch (error) {
     return res.status(400).json({
       mensaje: 'Ocurrio un error',

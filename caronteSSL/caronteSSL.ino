@@ -138,28 +138,22 @@ void setup() {
   //server.on("/", handleRoot);
   //server.begin();
   //Serial.println("HTTP server started");
+  
 }
 
-//=======================================================================
-//                    Main Program Loop
-//=======================================================================
-void loop() {
+void openFromWebApp(){
   WiFiClientSecure httpsClient;    //Declare object of class WiFiClient
 
   //Serial.println(host);
 
   //Serial.printf("Using fingerprint '%s'\n", fingerprint);
   httpsClient.setFingerprint(fingerprint);
-  httpsClient.setTimeout(300); // 0.3 Seconds
-  //delay(1000);
+  httpsClient.setTimeout(100); // 0.1 Seconds
 
-  // Look for new cards
-  if ( ! mfrc522.PICC_IsNewCardPresent()) {
-    delay(50);
-
-    Serial.println("HTTPS Connecting");
+  
+  Serial.println("HTTPS Connecting");
     int r=0; //retry counter
-    while((!httpsClient.connect(host, httpsPort)) && (r < 300)){
+    while((!httpsClient.connect(host, httpsPort)) && (r < 30)){
         delay(10);
         Serial.print(".");
         r++;
@@ -199,10 +193,32 @@ void loop() {
         Serial.println("Relay Activated");
         delay(2000);
         digitalWrite(RELAY_PIN, LOW); //Relay OFF
+        delay(5000);
     }
     else{
       Serial.println("False");
     }
+    
+}
+
+//=======================================================================
+//                    Main Program Loop
+//=======================================================================
+void loop() {
+  WiFiClientSecure httpsClient;    //Declare object of class WiFiClient
+
+  //Serial.println(host);
+
+  //Serial.printf("Using fingerprint '%s'\n", fingerprint);
+  httpsClient.setFingerprint(fingerprint);
+  httpsClient.setTimeout(100); // 0.1 Seconds
+  delay(200);
+
+  // Look for new cards
+  while ( ! mfrc522.PICC_IsNewCardPresent()) {
+    delay(50);
+
+    openFromWebApp();
     
     return;
   }
