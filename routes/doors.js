@@ -13,15 +13,19 @@ router.get('/doors/:host/:device/:tag', async(req, res) => {
     const _host = req.params.host;
     const _device = req.params.device;
     const _tag = req.params.tag;
-    const _group = req.params.tag;
     let userAction = null;
     try {
       const tag = await Tag.findOne({tagId: _tag});
       const user = await User.findOne({tags: tag._id});
       const device = await Device.findOne({host: _host, devId: _device});
+      let groupEnabled = true;
       let intersection = device.groups.filter(x => user.groups.includes(x));
+      intersection.forEach(g => {
+        const groupEnabledDB = await Group.findOne({_id: g._id});
+        if(!groupEnabledDB.active){groupEnabled=false}
+      });
       //const device = await Device.findOne({devId: _device});
-      if ( device && tag && intersection.length>0 && device.activo && user.activo && tag.active && _group.active){
+      if ( device && tag && intersection.length>0 && device.activo && user.activo && tag.active && groupEnabled){
         res.json({access: "granted"});
         // call the first chunk of code right away
         device.locked = false;
