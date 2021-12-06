@@ -1,5 +1,6 @@
 import express from 'express';
 import User from '../models/user';
+import Group from '../models/group';
 const router = express.Router();
 
 const {verificarAuth, verificarAdministrador} = require('../middlewares/autenticacion');
@@ -57,7 +58,7 @@ router.get('/usuario/:id', async(req, res) => {
 
 // Get con todos los documentos
 router.get('/usuarios', verificarAuth, async(req, res) => {
-  const _id = req.usuario._id;
+  //const _id = req.usuario._id;
   const role = req.usuario.role;
   const dist = [];
   if(role == 'TEACHER'){

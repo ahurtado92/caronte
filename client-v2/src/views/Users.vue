@@ -305,11 +305,12 @@ export default {
                         birth: new Date(evt.birth).toLocaleString(),
                         email: evt.email,
                         uname: evt.uname,
-                        pass: evt.pass,
+                        //pass: evt.pass,
                         groups: evt.groups,
                         avatar: evt.avatar,
                         date: new Date(evt.date).toLocaleString(),
                         status: userAction,
+                        inGroups: evt.inGroups,
                     })
                 });
                 this.users = r;
