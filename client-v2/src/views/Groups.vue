@@ -21,17 +21,21 @@
             ></v-text-field>
 
             <v-btn
-                block
                 class="mr-4"
                 type="submit"
                 color="success"
                 form="form-nuevo-grupo"
             >Añadir</v-btn>
+            <v-btn
+                class="mr-4"
+                color="danger"
+                @click.stop="agregar = false"
+            >Cancelar</v-btn>
 
         </v-form>
 
         <v-form
-            v-else
+            v-if="modificar"
             @submit.prevent="editarGrupo(grupoEditar)"
             id="form-editar-grupo"
             ref="form"
@@ -60,7 +64,7 @@
             <v-btn
                 class="mr-4"
                 color="danger"
-                @click.stop="agregar = true"
+                @click.stop="modificar = false"
             >Cancelar</v-btn>
 
         </v-form>
@@ -92,6 +96,19 @@
                     </td>
                     </tr>
                 </tbody>
+                <v-btn
+                    v-if="!agregar"
+                    class="mx-2"
+                    fab
+                    dark
+                    small
+                    color="success"
+                    @click.stop="agregar = true"
+                >
+                <v-icon dark>
+                    mdi-plus
+                </v-icon>
+                </v-btn>
             </template>
         </v-simple-table>
 
@@ -105,7 +122,8 @@ export default {
         return {
             grupos: [],
             grupo: {},
-            agregar: true,
+            agregar: false,
+            modificar: false,
             grupoEditar: {},
         };
     },
@@ -162,6 +180,7 @@ export default {
         },
         activarEdicionGrupo(id){
             this.agregar = false;
+            this.modificar = true;
             this.axios.get(`group/${id}`)
             .then(res => {
                 this.grupoEditar = res.data;

@@ -42,17 +42,22 @@
             ></v-text-field>
 
             <v-btn
-                block
                 class="mr-4"
                 type="submit"
                 color="success"
                 form="form-nueva-puerta"
             >Añadir</v-btn>
 
+            <v-btn
+                class="mr-4"
+                color="danger"
+                @click.stop="agregar = false"
+            >Cancelar</v-btn>
+
         </v-form>
 
         <v-form
-            v-else
+            v-if="modificar"
             @submit.prevent="editarPuerta(puertaEditar)"
             id="form-editar-puerta"
             ref="form"
@@ -108,7 +113,7 @@
             <v-btn
                 class="mr-4"
                 color="danger"
-                @click.stop="agregar = true"
+                @click.stop="modificar = false"
             >Cancelar</v-btn>
 
         </v-form>
@@ -161,6 +166,19 @@
                     </td>
                     </tr>
                 </tbody>
+                <v-btn
+                    v-if="!agregar"
+                    class="mx-2"
+                    fab
+                    dark
+                    small
+                    color="success"
+                    @click.stop="agregar = true"
+                >
+                <v-icon dark>
+                    mdi-plus
+                </v-icon>
+                </v-btn>
             </template>
         </v-simple-table>
 
@@ -176,7 +194,8 @@ export default {
             groups: [],
             inGroups: [],
             puerta: {},
-            agregar: true,
+            agregar: false,
+            modificar: false,
             puertaEditar: {},
         };
     },
@@ -254,6 +273,7 @@ export default {
         },
         activarEdicionPuerta(id){
             this.agregar = false;
+            this.modificar = true;
             this.axios.get(`door/${id}`)
             .then(res => {
                 this.puertaEditar = res.data;

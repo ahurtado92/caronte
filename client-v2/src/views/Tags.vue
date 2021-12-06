@@ -21,17 +21,22 @@
             ></v-text-field>
 
             <v-btn
-                block
                 class="mr-4"
                 type="submit"
                 color="success"
                 form="form-nuevo-tag"
             >Añadir</v-btn>
 
+            <v-btn
+                class="mr-4"
+                color="danger"
+                @click.stop="agregar = false"
+            >Cancelar</v-btn>
+
         </v-form>
 
         <v-form
-            v-else
+            v-if="modificar"
             @submit.prevent="editarTag(tagEditar)"
             id="form-editar-tag"
             ref="form"
@@ -60,7 +65,7 @@
             <v-btn
                 class="mr-4"
                 color="danger"
-                @click.stop="agregar = true"
+                @click.stop="modificar = false"
             >Cancelar</v-btn>
 
         </v-form>
@@ -92,6 +97,19 @@
                     </td>
                     </tr>
                 </tbody>
+                <v-btn
+                    v-if="!agregar"
+                    class="mx-2"
+                    fab
+                    dark
+                    small
+                    color="success"
+                    @click.stop="agregar = true"
+                >
+                <v-icon dark>
+                    mdi-plus
+                </v-icon>
+                </v-btn>
             </template>
         </v-simple-table>
 
@@ -105,7 +123,8 @@ export default {
         return {
             tags: [],
             tag: {},
-            agregar: true,
+            agregar: false,
+            modificar: false,
             tagEditar: {},
         };
     },
@@ -162,6 +181,7 @@ export default {
         },
         activarEdicionTag(id){
             this.agregar = false;
+            this.modificar = true;
             this.axios.get(`tag/${id}`)
             .then(res => {
                 this.tagEditar = res.data;
