@@ -210,7 +210,13 @@
                     <td>{{item.phone}}</td>
                     <td>{{item.birth}}</td>
                     <td>{{item.email}}</td>
-                    <td>{{item.inGroups}}</td>
+                    <td>
+                        <table><tr>
+                            <td v-for="(item, index) in item.inGroups" :key="index">
+                                {{item.name}}
+                            </td>
+                        </tr></table>
+                    </td>
                     <td>{{item.status}}</td>
                     <td>
                         <v-btn
@@ -274,7 +280,7 @@ export default {
       DatePicker,
     },
     created(){
-        this.listGroups();
+        //this.listGroups();
         this.timer = setInterval(() => {
             this.listUsers();
         }, 1000)
@@ -315,24 +321,6 @@ export default {
                 });
                 this.users = r;
             })
-            .catch((e)=>{
-                console.log('error' + e);
-            })
-            this.axios.get('groups', config)
-            .then((response) => {
-                this.groups = response.data; 
-            })
-            .then(
-                () => {
-                    //console.log(this.groups);
-                    this.users.forEach(user => {
-                        user.groups.forEach(group => {
-                            user.inGroups = this.groups.find(element => element._id == group).name;
-                            //console.log(puerta.inGroups);
-                        });
-                    });
-                }
-            )
             .catch((e)=>{
                 console.log('error' + e);
             })
