@@ -202,7 +202,7 @@ export default {
     created(){
         this.timer = setInterval(() => {
             this.listarPuertas();
-        }, 1000)
+        }, 500)
         
     },
     computed: {
