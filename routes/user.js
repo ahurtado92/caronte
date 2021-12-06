@@ -64,8 +64,31 @@ router.get('/usuarios', verificarAuth, async(req, res) => {
     dist.push('ADMIN')
   }
   try {
-    const userDb = await User.find({ role: { $nin: dist } });
-    res.json(userDb);
+    //const userDb = await User.find({ role: { $nin: dist } });
+    //res.json(userDb);
+    const userDb = await User.find({});
+    const groupDB = await Group.find({});
+      const resp = [];
+      userDb.forEach(async user=>{
+        let intersection = groupDB.filter(x => user.groups.includes(x._id)); //OK!!!!!
+        resp.push({
+          _id: user._id,
+          activo: user.activo,
+          nombre: user.nombre,
+          apellidos: user.apellidos,
+          phone: user.phone,
+          birth: user.birth,
+          email: user.email,
+          uname: user.uname,
+          //pass: user.pass,
+          groups: user.groups,
+          avatar: user.avatar,
+          date: user.date,
+          status: user.status,
+          inGroups: intersection,
+        })
+      });
+      res.json(resp);
   } catch (error) {
     return res.status(400).json({
       mensaje: 'Ocurrio un error',

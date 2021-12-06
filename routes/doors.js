@@ -104,15 +104,11 @@ router.get('/doors/open/:host', async(req, res) => {
 router.get('/doors/requestOpen/:host', async(req, res) => {
   const _host = req.params.host;
   try {
-    //device.openRequest = true;
     const device = await Device.findOne({host: _host}); 
     const unlockedDevice = await Device.findByIdAndUpdate(device._id,{openRequest: true},{new: true});
-    //console.log(unlockedDevice);
-    //unlockedDevice.openRequest = false;
     setTimeout(async()=>{ 
       const device = await Device.findOne({host: _host});
       const lockedDevice = await Device.findByIdAndUpdate(device._id,{openRequest: false},{new: true});
-      //console.log(lockedDevice);
       res.status(200).json({OK:"true"});
     }, 1000);
   } catch (error) {
@@ -128,16 +124,9 @@ router.get('/doors', async(req, res) => {
   try {
     const doorDb = await Device.find({});
     const groupDB = await Group.find({});
-    /*doorDb.forEach(async door=>{
-      //let intersection = device.groups.filter(x => user.groups.includes(x));
-      let intersection = await door.groups.filter(x => groups.includes(x));
-      console.log(intersection);
-    });*/
       const resp = [];
       doorDb.forEach(async door=>{
         let intersection = groupDB.filter(x => door.groups.includes(x._id)); //OK!!!!!
-        //console.log(intersection);
-        //doorDb.push(intersection.pop());
         resp.push({
           activo: door.activo,
           groups: door.groups,
@@ -153,10 +142,7 @@ router.get('/doors', async(req, res) => {
           openRequest: door.openRequest
         })
       });
-      console.log(resp);
       res.json(resp);
-    
-    
   } catch (error) {
     return res.status(400).json({
       mensaje: 'Ocurrio un error',
