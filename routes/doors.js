@@ -42,9 +42,18 @@ router.get('/doors/:host/:device/:tag', async(req, res) => {
         }, 2000);
 
         const log = {};
-        log.device = device;
-        log.tag = tag;
-        log.user = user;
+        log.device[_id] = device._id;
+        log.device[name] = device.name;
+        log.device[active] = device.active;
+        log.device[groups] = device.groups;
+        log.tag[_id] = tag._id;
+        log.tag[active] = tag.active;
+        log.user[_id] = user._id;
+        log.user[uname] = user.uname;
+        log.user[nombre] = user.nombre;
+        log.user[apellidos] = user.apellidos;
+        log.user[activo] = user.activo;
+        log.user[groups] = user.groups;
         log.action = {access: "granted"};
         if(!device.outdoor){
           userAction = "acceder a la sala";
